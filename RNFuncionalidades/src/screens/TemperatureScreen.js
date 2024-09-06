@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
+import showError from '../helpers/errorHandler.js';
+
 
 export default function TemperatureScreen() {
   const [location, setLocation] = useState(null);
@@ -20,10 +22,15 @@ export default function TemperatureScreen() {
       setLocation(loc);
 
       const { latitude, longitude } = loc.coords;
-      const apiKey = 'e07d57780d45cfbad96d8ffeb1d287c8'; 
+      const apiKey = '989614a8f5ad010e430304b554547c1b'; 
       const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
-
+      try {
+        const response = await axios.get(url);
+        setTemperature(response.data.main.temp);
+      } catch (error) {
+        showError('Error obteniendo la temperatura');
+      }
       setLoading(false);
     })();
   }, []);

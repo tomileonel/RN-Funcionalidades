@@ -12,7 +12,7 @@ export default function ContactsScreen() {
       try {
         const number = await AsyncStorage.getItem('emergencyNumber');
         if (number) {
-          setEmergencyNumber(number);
+          setEmergencyNumber(formatPhoneNumber(number));
         }
       } catch (error) {
         console.error('Error al obtener el número de emergencia:', error);
@@ -38,14 +38,26 @@ export default function ContactsScreen() {
     })();
   }, []);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.contactItem}>
-      <Text>{item.name}</Text>
-      <Text style={item.phoneNumbers && item.phoneNumbers[0].number === emergencyNumber ? styles.emergencyNumber : null}>
-        {item.phoneNumbers ? item.phoneNumbers[0].number : 'Sin número'}
-      </Text>
-    </View>
-  );
+  // Función para formatear el número eliminando todo lo que no sea dígito y tomando los últimos 8 dígitos solo para comparar
+  const formatPhoneNumber = (phoneNumber) => {
+    const digitsOnly = phoneNumber.replace(/\D/g, ''); // Elimina todo excepto dígitos
+    return digitsOnly.slice(-8); // Devuelve los últimos 8 dígitos
+  };
+
+  const renderItem = ({ item }) => {
+    const originalPhoneNumber = item.phoneNumbers ? item.phoneNumbers[0].number : 'Sin número';
+    const formattedPhoneNumber = item.phoneNumbers ? formatPhoneNumber(item.phoneNumbers[0].number) : '';
+    const isEmergencyContact = formattedPhoneNumber === emergencyNumber;
+
+    return (
+      <View style={styles.contactItem}>
+        <Text>{item.name}</Text>
+        <Text style={isEmergencyContact ? styles.emergencyNumber : null}>
+          {originalPhoneNumber}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>

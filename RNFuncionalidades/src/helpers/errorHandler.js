@@ -1,11 +1,6 @@
-import * as Location from 'expo-location';
+import { Alert, Vibration } from 'react-native';
 
-export const getLocation = async () => {
-  let { status } = await Location.requestForegroundPermissionsAsync();
-  if (status !== 'granted') {
-    throw new Error('Permission to access location was denied');
-  }
-
-  let location = await Location.getCurrentPositionAsync({});
-  return location.coords;
+export const errorHandler = (message) => {
+  Vibration.vibrate();
+  Alert.alert('Error', message, [{ text: 'OK' }]);
 };
