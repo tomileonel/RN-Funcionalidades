@@ -1,13 +1,38 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bienvenido a la App de Emergencia</Text>
-      <Button title="Configuración de Emergencia" onPress={() => navigation.navigate('Emergency')} />
-      <Button title="Contactos" onPress={() => navigation.navigate('Contacts')} />
-      <Button title="Ver Temperatura y Ubicación" onPress={() => navigation.navigate('Temperature')} />
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Emergency')}
+      >
+        <Text style={styles.buttonText}>Configuración de Emergencia</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Contacts')}
+      >
+        <Text style={styles.buttonText}>Contactos</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Temperature')}
+      >
+        <Text style={styles.buttonText}>Ver Temperatura y Ubicación</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('About')}
+      >
+        <Text style={styles.buttonText}>Acerca de</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -17,10 +42,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#E0F7FA',
+    padding: 20,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#00796B',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: '#00796B',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    marginVertical: 10,
+    width: '80%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });

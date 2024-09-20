@@ -10,6 +10,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import EmergencyScreen from './src/screens/EmergencyScreen';
 import ContactsScreen from './src/screens/ContactsScreen';
 import TemperatureScreen from './src/screens/TemperatureScreen';
+import AboutScreen from './src/screens/AboutScreen.js';
 import showError from './src/helpers/errorHandler.js';
 
 
@@ -21,10 +22,10 @@ const EmergencyCall = () => {
       try {
         const emergencyContact = await AsyncStorage.getItem('emergencyNumber');
         if (emergencyContact) {
-          Alert.alert('Emergency Alert', 'Sending emergency message...');
+         showError('Sending emergency message...');
           Linking.openURL(`whatsapp://send?text=Prueba&phone=${emergencyContact}`);
         } else {
-          showError('Error', 'No emergency contact configured');
+          showError('No emergency contact configured');
         }
       } catch (error) {
         showError('Error sending emergency message:', error);
@@ -52,6 +53,7 @@ export default function App() {
         <Stack.Screen name="Emergency" component={EmergencyScreen} />
         <Stack.Screen name="Contacts" component={ContactsScreen} />
         <Stack.Screen name="Temperature" component={TemperatureScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
