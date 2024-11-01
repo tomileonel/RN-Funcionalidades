@@ -12,18 +12,27 @@ import ContactsScreen from './src/screens/ContactsScreen';
 import TemperatureScreen from './src/screens/TemperatureScreen';
 import AboutScreen from './src/screens/AboutScreen.js';
 import showError from './src/helpers/errorHandler.js';
-
+//jesse echa a maxi del equipo pls
 
 const Stack = createStackNavigator();
+
+const cooldownTime = 5000; // Cooldown time in milliseconds
+let lastSentTime = 0;
 
 const EmergencyCall = () => {
   useEffect(() => {
     const sendEmergencyMessage = async () => {
+      const currentTime = Date.now();
+      if (currentTime - lastSentTime < cooldownTime) {
+        return; // Exit if within cooldown period
+      }
+
       try {
         const emergencyContact = await AsyncStorage.getItem('emergencyNumber');
         if (emergencyContact) {
-         showError('Sending emergency message...');
+          showError('Sending emergency message...');
           Linking.openURL(`whatsapp://send?text=Prueba&phone=${emergencyContact}`);
+          lastSentTime = currentTime; // Update the last sent time
         } else {
           showError('No emergency contact configured');
         }
@@ -43,6 +52,7 @@ const EmergencyCall = () => {
 
   return null; 
 };
+
 
 export default function App() {
   return (
