@@ -139,6 +139,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     padding: 20,
   },
+  scannedText:{
+    color: '#FFFFFF'
+  },
   modalText: {
     fontSize: 20,
     fontWeight: 'bold',
