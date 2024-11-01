@@ -12,7 +12,7 @@ import ContactsScreen from './src/screens/ContactsScreen';
 import TemperatureScreen from './src/screens/TemperatureScreen';
 import AboutScreen from './src/screens/AboutScreen.js';
 import showError from './src/helpers/errorHandler.js';
-//jesse echa a maxi del equipo pls
+
 
 const Stack = createStackNavigator();
 
